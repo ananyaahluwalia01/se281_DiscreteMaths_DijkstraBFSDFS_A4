@@ -1,7 +1,6 @@
 package nz.ac.auckland.softeng281.a4;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 
 // *******************************
 // YOU CANNOT MODIFY THIS CLASS
@@ -47,11 +46,12 @@ public class Edge {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", "EDGE [", "]")
-                .add("source=" + source)
-                .add("target=" + target)
-                .add("weight=" + weight)
-                .toString();
+        final StringBuilder sb = new StringBuilder("Edge{");
+        sb.append("source=").append(source);
+        sb.append(", target=").append(target);
+        sb.append(", weight=").append(weight);
+        sb.append('}');
+        return sb.toString();
     }
 
     @Override

@@ -31,7 +31,7 @@ build: clean
 	javac -cp $(classpath) -d $(bin) $(build_path)
 
 test-nodes: clean build
-	java -cp $(classpath) org.junit.runner.JUnitCore $(package).NodesStackTest
+	java -cp $(classpath) org.junit.runner.JUnitCore $(package).NodesStackAndQueueTest
 
 test-edges: clean build
 	java -cp $(classpath) org.junit.runner.JUnitCore $(package).EdgesLinkedListTest

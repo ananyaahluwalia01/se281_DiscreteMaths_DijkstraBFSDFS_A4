@@ -31,7 +31,9 @@ public class Graph {
             Node source = new Node(split[0]);
             Node target = new Node(split[1]);
             Edge edgeObject = new Edge(source, target, Integer.parseInt(weights.get(i)));
-            adjacencyMap.putIfAbsent(source, new EdgesLinkedList());
+            if (!adjacencyMap.containsKey(source)) {
+                adjacencyMap.put(source, new EdgesLinkedList());
+            }
             adjacencyMap.get(source).append(edgeObject);
             if (i == 0) {
                 root = source;

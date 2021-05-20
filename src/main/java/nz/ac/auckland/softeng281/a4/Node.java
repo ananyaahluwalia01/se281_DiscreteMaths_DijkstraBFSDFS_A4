@@ -1,7 +1,6 @@
 package nz.ac.auckland.softeng281.a4;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 
 // *******************************
 // YOU CANNOT MODIFY THIS CLASS
@@ -45,8 +44,9 @@ public class Node {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", "Node [", "]")
-                .add("val='" + value + "'")
-                .toString();
+        final StringBuilder sb = new StringBuilder("Node{");
+        sb.append("value='").append(value).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }
