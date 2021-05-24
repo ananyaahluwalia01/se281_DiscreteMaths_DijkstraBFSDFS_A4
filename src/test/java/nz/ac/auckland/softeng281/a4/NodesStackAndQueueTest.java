@@ -14,12 +14,12 @@ public class NodesStackAndQueueTest {
     public void setUp() {
         stack = new NodesStackAndQueue();
     }
-   /** 
+
     @Test
     public void isEmptyEmptyStack() {
         assertTrue(stack.isEmpty());
     }
-	**/
+
 	
     @Test
     public void isEmptyNotEmpty() {

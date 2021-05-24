@@ -17,12 +17,9 @@ public class NodesStackAndQueue {
     }
 
     public boolean isEmpty() {
-    	System.out.println(rear + " HAH " + front);
     	if (front == rear) {
-        	System.out.println(rear + " empty " + front);
         	return true;
         } else {
-        	System.out.println(rear + " not empty " + front);
         	return false;
         }
     }
@@ -60,7 +57,7 @@ public class NodesStackAndQueue {
      * @param node
      */
     public void append(Node node) { // equivalent to the enqueue REMOVE COMMENT
-    	data.set(rear, node);
+    	data.add(rear, node);
     	++rear;
     	++count;
     }
