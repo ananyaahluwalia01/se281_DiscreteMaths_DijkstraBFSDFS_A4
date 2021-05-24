@@ -67,7 +67,7 @@ public class NodesStackAndQueueTest {
 
     	}
     }
-    
+
     @Test
     public void peekTestA() {
     	stack.append(new Node("10"));
@@ -107,6 +107,26 @@ public class NodesStackAndQueueTest {
     	assertEquals(returned, expected);
     	
     }
+    
+
+    
+    @Test
+    public void allTestA() {
+    	stack.append(new Node("20"));
+    	stack.append(new Node("30"));
+    	stack.push(new Node("10"));
+    	stack.push(new Node("5"));
+    	
+    	stack.append(new Node("40"));
+    	stack.pop();
+    	stack.pop();
+    	
+    	
+    	
+    	assertTrue("The size is correct", stack.getCount() == 3);
+    	assertEquals(stack.peek(), new Node("20"));
+    }
+    
     
     
 }
