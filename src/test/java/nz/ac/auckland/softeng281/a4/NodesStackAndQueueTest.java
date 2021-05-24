@@ -82,4 +82,36 @@ public class NodesStackAndQueueTest {
     	assertEquals(returned, expected);
     }
     
+    public void peekTestBEmpty() {
+    	try {
+    		stack.peek();
+    		fail();
+    	} catch (EmptyException e) {
+
+    	}
+    }
+    
+    @Test
+    public void pushTestA() {
+    	stack.append(new Node("10"));
+    	stack.append(new Node("20"));
+    	stack.append(new Node("30"));
+    	
+    	stack.push(new Node("5"));
+    	
+    	
+    	
+    	NodesStackAndQueue expected = new NodesStackAndQueue();
+    	
+    	expected.append(new Node("5"));
+    	expected.append(new Node("10"));
+    	expected.append(new Node("20"));
+    	expected.append(new Node("30"));
+    	
+    	
+    	assertEquals(expected, stack);
+    	
+    }
+    
+    
 }

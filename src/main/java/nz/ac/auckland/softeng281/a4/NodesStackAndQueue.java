@@ -57,6 +57,9 @@ public class NodesStackAndQueue {
 	 * @return
 	 */
 	public Node peek() {
+		if(data.isEmpty()) {
+			throw new EmptyException("Data is empty.");
+		}
 		return data.get(front);
 	}
 
