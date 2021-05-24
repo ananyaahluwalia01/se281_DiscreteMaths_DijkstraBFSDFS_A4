@@ -36,11 +36,7 @@ public class NodesStackAndQueueTest {
     	
     	stack.pop();
     	
-    	NodesStackAndQueue expected = new NodesStackAndQueue();
-    	expected.append(new Node("10"));
-    	expected.append(new Node("20"));
-    	
-    	assertEquals(stack, expected);
+    	assertTrue("The size is correct", stack.getCount() == 2);
     	
     }
     

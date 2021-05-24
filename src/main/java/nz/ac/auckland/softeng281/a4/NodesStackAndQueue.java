@@ -7,58 +7,67 @@ public class NodesStackAndQueue {
 	private int count;
 	private ArrayList<Node> data;
 
-    public NodesStackAndQueue() {
-    	data = new ArrayList <>();
-    	front = 0;
-    	rear = 0;
-    	count = 0;
-    	
+	public NodesStackAndQueue() {
+		data = new ArrayList <>();
+		front = 0;
+		rear = 0;
+		count = 0;
+	}
+	
+	public int getCount() {
+		return count;
+	}
 
-    }
+	public boolean isEmpty() {
+		if (front == rear) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-    public boolean isEmpty() {
-    	if (front == rear) {
-        	return true;
-        } else {
-        	return false;
-        }
-    }
+	/**
+	 * Push operation refers to inserting an element on the Top of the stack.
+	 *
+	 * @param node
+	 */
+	public void push(Node node) {
+		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+	}
 
-    /**
-     * Push operation refers to inserting an element on the Top of the stack.
-     *
-     * @param node
-     */
-    public void push(Node node) {
-        throw new java.lang.UnsupportedOperationException("Not implemented yet.");
-    }
+	/**
+	 * pop an element from the top of the stack (removes and returns the tope element)
+	 *
+	 * @return
+	 */
+	public Node pop() { // equivalent to the dequeue REMOVE COMMENT
+		if(data.isEmpty()) {
+			throw new EmptyException("Data is empty.");
+		}
+		Node out = data.get(front);
+		++front;
+		--count;
+		return out;
+	}
 
-    /**
-     * pop an element from the top of the stack (removes and returns the tope element)
-     *
-     * @return
-     */
-    public Node pop() { // equivalent to the dequeue REMOVE COMMENT
-    	throw new java.lang.UnsupportedOperationException("Not implemented yet.");
-    }
-    
-    /**
-     * get the element from the top of the stack without removing it
-     *
-     * @return
-     */
-    public Node peek() {
-        throw new java.lang.UnsupportedOperationException("Not implemented yet.");
-    }
 
-    /**
-     * append an element at the end of the stack
-     *
-     * @param node
-     */
-    public void append(Node node) { // equivalent to the enqueue REMOVE COMMENT
-    	data.add(rear, node);
-    	++rear;
-    	++count;
-    }
+/**
+ * get the element from the top of the stack without removing it
+ *
+ * @return
+ */
+public Node peek() {
+	throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+}
+
+/**
+ * append an element at the end of the stack
+ *
+ * @param node
+ */
+public void append(Node node) { // equivalent to the enqueue REMOVE COMMENT
+	data.add(rear, node);
+	++rear;
+	++count;
+}
 }
