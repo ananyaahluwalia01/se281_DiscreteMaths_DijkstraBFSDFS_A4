@@ -1,10 +1,19 @@
 package nz.ac.auckland.softeng281.a4;
+import java.util.ArrayList;
 
 public class NodesStackAndQueue {
-
+	private int front;
+	private int rear;
+	private int count;
+	private ArrayList<Node> data;
 
     public NodesStackAndQueue() {
-        throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+    	data = new ArrayList <>();
+    	front = 0;
+    	rear = 0;
+    	count = 0;
+    	
+
     }
 
     public boolean isEmpty() {
@@ -25,10 +34,10 @@ public class NodesStackAndQueue {
      *
      * @return
      */
-    public Node pop() {
-        throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+    public Node pop() { // equivalent to the dequeue REMOVE COMMENT
+    	throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
-
+    
     /**
      * get the element from the top of the stack without removing it
      *
@@ -43,7 +52,7 @@ public class NodesStackAndQueue {
      *
      * @param node
      */
-    public void append(Node node) {
-        throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+    public void append(Node node) { // equivalent to the enqueue REMOVE COMMENT
+    	throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
 }

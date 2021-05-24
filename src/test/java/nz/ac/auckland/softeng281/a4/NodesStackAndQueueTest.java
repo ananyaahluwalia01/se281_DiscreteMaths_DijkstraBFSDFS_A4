@@ -14,7 +14,7 @@ public class NodesStackAndQueueTest {
     public void setUp() {
         stack = new NodesStackAndQueue();
     }
-
+    
     @Test
     public void isEmptyEmptyStack() {
         assertTrue(stack.isEmpty());
@@ -25,4 +25,5 @@ public class NodesStackAndQueueTest {
         stack.append(new Node("4"));
         assertFalse(stack.isEmpty());
     }
+    
 }
