@@ -68,4 +68,18 @@ public class NodesStackAndQueueTest {
     	}
     }
     
+    @Test
+    public void peekTestA() {
+    	stack.append(new Node("10"));
+    	stack.append(new Node("20"));
+    	stack.append(new Node("30"));
+    	
+    	Node returned = stack.peek();
+    	
+    	Node expected = new Node("10");
+    	
+    	
+    	assertEquals(returned, expected);
+    }
+    
 }

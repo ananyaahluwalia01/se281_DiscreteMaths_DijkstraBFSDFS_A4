@@ -13,7 +13,7 @@ public class NodesStackAndQueue {
 		rear = 0;
 		count = 0;
 	}
-	
+
 	public int getCount() {
 		return count;
 	}
@@ -36,7 +36,7 @@ public class NodesStackAndQueue {
 	}
 
 	/**
-	 * pop an element from the top of the stack (removes and returns the tope element)
+	 * pop an element from the top of the stack (removes and returns the top element)
 	 *
 	 * @return
 	 */
@@ -51,23 +51,23 @@ public class NodesStackAndQueue {
 	}
 
 
-/**
- * get the element from the top of the stack without removing it
- *
- * @return
- */
-public Node peek() {
-	throw new java.lang.UnsupportedOperationException("Not implemented yet.");
-}
+	/**
+	 * get the element from the top of the stack without removing it
+	 *
+	 * @return
+	 */
+	public Node peek() {
+		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+	}
 
-/**
- * append an element at the end of the stack
- *
- * @param node
- */
-public void append(Node node) { // equivalent to the enqueue REMOVE COMMENT
-	data.add(rear, node);
-	++rear;
-	++count;
-}
+	/**
+	 * append an element at the end of the stack
+	 *
+	 * @param node
+	 */
+	public void append(Node node) { // equivalent to the enqueue REMOVE COMMENT
+		data.add(rear, node);
+		++rear;
+		++count;
+	}
 }
