@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 
 public class NodesStackAndQueueTest {
 
-    NodesStackAndQueue stack;
+	NodesStackAndQueue stack;
 
     @Before
     public void setUp() {
@@ -38,6 +38,8 @@ public class NodesStackAndQueueTest {
     	
     	assertTrue("The size is correct", stack.getCount() == 2);
     	
+    	
     }
+    
     
 }
