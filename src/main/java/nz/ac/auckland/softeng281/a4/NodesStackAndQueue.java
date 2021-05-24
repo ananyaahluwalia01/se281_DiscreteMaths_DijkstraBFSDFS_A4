@@ -17,7 +17,14 @@ public class NodesStackAndQueue {
     }
 
     public boolean isEmpty() {
-        throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+    	System.out.println(rear + " HAH " + front);
+    	if (front == rear) {
+        	System.out.println(rear + " empty " + front);
+        	return true;
+        } else {
+        	System.out.println(rear + " not empty " + front);
+        	return false;
+        }
     }
 
     /**
@@ -53,6 +60,8 @@ public class NodesStackAndQueue {
      * @param node
      */
     public void append(Node node) { // equivalent to the enqueue REMOVE COMMENT
-    	throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+    	data.set(rear, node);
+    	++rear;
+    	++count;
     }
 }
