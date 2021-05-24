@@ -41,5 +41,20 @@ public class NodesStackAndQueueTest {
     	
     }
     
+
+    @Test
+    public void popTestB() {
+    	stack.append(new Node("10"));
+    	stack.append(new Node("20"));
+    	stack.append(new Node("30"));
+    	
+    	Node returned = stack.pop();
+    	
+    	Node expected = new Node("10");
+    	
+    	
+    	assertEquals(returned, expected);
+    	
+    }
     
 }
