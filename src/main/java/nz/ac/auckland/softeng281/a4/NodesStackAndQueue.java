@@ -57,7 +57,7 @@ public class NodesStackAndQueue {
 	 * @return
 	 */
 	public Node peek() {
-		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+		return data.get(front);
 	}
 
 	/**
