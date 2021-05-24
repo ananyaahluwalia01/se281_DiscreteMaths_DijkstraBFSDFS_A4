@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class NodesStackAndQueueTest {
 
@@ -25,6 +26,22 @@ public class NodesStackAndQueueTest {
     public void isEmptyNotEmpty() {
         stack.append(new Node("4"));
         assertFalse(stack.isEmpty());
+    }
+    
+    @Test
+    public void popTestA() {
+    	stack.append(new Node("10"));
+    	stack.append(new Node("20"));
+    	stack.append(new Node("30"));
+    	
+    	stack.pop();
+    	
+    	NodesStackAndQueue expected = new NodesStackAndQueue();
+    	expected.append(new Node("10"));
+    	expected.append(new Node("20"));
+    	
+    	assertEquals(stack, expected);
+    	
     }
     
 }
