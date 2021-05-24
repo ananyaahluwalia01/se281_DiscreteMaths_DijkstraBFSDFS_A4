@@ -32,7 +32,10 @@ public class NodesStackAndQueue {
 	 * @param node
 	 */
 	public void push(Node node) {
-		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+		data.add(front, node);
+		++rear;
+		++count;
+		
 	}
 
 	/**

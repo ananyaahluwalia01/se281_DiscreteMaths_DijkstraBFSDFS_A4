@@ -100,16 +100,11 @@ public class NodesStackAndQueueTest {
     	stack.push(new Node("5"));
     	
     	
+    	Node returned = stack.peek();
     	
-    	NodesStackAndQueue expected = new NodesStackAndQueue();
+    	Node expected = new Node("5");
     	
-    	expected.append(new Node("5"));
-    	expected.append(new Node("10"));
-    	expected.append(new Node("20"));
-    	expected.append(new Node("30"));
-    	
-    	
-    	assertEquals(expected, stack);
+    	assertEquals(returned, expected);
     	
     }
     
