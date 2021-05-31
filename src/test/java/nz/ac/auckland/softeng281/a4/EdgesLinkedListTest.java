@@ -80,7 +80,7 @@ public class EdgesLinkedListTest {
 
 		}
 	}
-	
+
 	@Test
 	public void testPrependC() {
 		list.prepend(new Edge(new Node("1"), new Node("2"), 1));
@@ -90,7 +90,7 @@ public class EdgesLinkedListTest {
 		assertEquals(new Edge(new Node("3"), new Node("4"), 1), list.get(1));
 		assertEquals(new Edge(new Node("1"), new Node("2"), 1), list.get(2));
 	}
-	
+
 	@Test
 	public void testInsert() {
 		list.prepend(new Edge(new Node("1"), new Node("2"), 1));
@@ -99,7 +99,7 @@ public class EdgesLinkedListTest {
 		list.insert(1, new Edge(new Node("7"), new Node("8"), 5));
 		assertEquals(new Edge(new Node("7"), new Node("8"), 5), list.get(1));
 	}
-	
+
 	@Test
 	public void testInsertB() {
 		list.prepend(new Edge(new Node("1"), new Node("2"), 1));
@@ -111,18 +111,35 @@ public class EdgesLinkedListTest {
 		assertEquals(new Edge(new Node("3"), new Node("4"), 1), list.get(1));
 		assertEquals(new Edge(new Node("5"), new Node("6"), 2), list.get(3));
 	}
-	
+
 	@Test
 	public void testRemove() {
 		list.append(new Edge(new Node("1"), new Node("2"), 1));
 		list.append(new Edge(new Node("3"), new Node("4"), 1));
 		list.append(new Edge(new Node("5"), new Node("6"), 1));
-		
+
 		list.remove(0);
 		assertEquals(list.size(), 2);
 		assertEquals(new Edge(new Node("3"), new Node("4"), 1), list.get(0));
 	}
-	
-	
-	
+
+	@Test
+	public void testRemoveB() {
+		list.append(new Edge(new Node("1"), new Node("2"), 1));
+		list.append(new Edge(new Node("3"), new Node("4"), 1));
+		list.append(new Edge(new Node("5"), new Node("6"), 1));
+
+		list.remove(0);
+		assertEquals(list.size(), 2);
+		assertEquals(new Edge(new Node("3"), new Node("4"), 1), list.get(0));
+		assertEquals(new Edge(new Node("5"), new Node("6"), 1), list.get(1));
+
+		try {
+			list.get(2);
+		} catch (InvalidPositionException e) {
+
+		}
+
+	}
+
 }
