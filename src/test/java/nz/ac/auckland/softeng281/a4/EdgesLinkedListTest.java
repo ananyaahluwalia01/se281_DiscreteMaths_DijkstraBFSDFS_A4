@@ -116,11 +116,13 @@ public class EdgesLinkedListTest {
 	public void testRemove() {
 		list.append(new Edge(new Node("1"), new Node("2"), 1));
 		list.append(new Edge(new Node("3"), new Node("4"), 1));
+		list.append(new Edge(new Node("5"), new Node("6"), 1));
 		
 		list.remove(0);
-		
-		assertEquals(list.size(), 1);
+		assertEquals(list.size(), 2);
 		assertEquals(new Edge(new Node("3"), new Node("4"), 1), list.get(0));
 	}
+	
+	
 	
 }
