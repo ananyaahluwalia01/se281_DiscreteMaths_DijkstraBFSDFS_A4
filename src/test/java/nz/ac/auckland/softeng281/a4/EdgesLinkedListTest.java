@@ -7,17 +7,25 @@ import static org.junit.Assert.assertEquals;
 
 public class EdgesLinkedListTest {
 
-    EdgesLinkedList list;
+	EdgesLinkedList list;
 
-    @Before
-    public void setUp() {
-        list = new EdgesLinkedList();
-    }
+	@Before
+	public void setUp() {
+		list = new EdgesLinkedList();
+	}
 
-    @Test
-    public void testPrependEmptyList() {
-        list.prepend(new Edge(new Node("1"), new Node("2"), 1));
-        assertEquals(new Edge(new Node("1"), new Node("2"), 1), list.get(0));
-    }
+	@Test
+	public void testPrependEmptyList() {
+		list.prepend(new Edge(new Node("1"), new Node("2"), 1));
+		assertEquals(new Edge(new Node("1"), new Node("2"), 1), list.get(0));
+	}
+	
+	@Test
+	public void testSize() {
+		list.prepend(new Edge(new Node("1"), new Node("2"), 1));
+		list.prepend(new Edge(new Node("3"), new Node("4"), 1));
+		list.prepend(new Edge(new Node("5"), new Node("6"), 1));
+		assertEquals(3, list.size());
+	}
 
 }

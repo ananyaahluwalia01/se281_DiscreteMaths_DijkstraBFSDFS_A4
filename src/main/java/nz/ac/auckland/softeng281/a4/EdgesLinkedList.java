@@ -56,7 +56,7 @@ public class EdgesLinkedList {
 			++i;
 			t=t.getNext();
 		}
-		
+
 		return t;
 	}
 
