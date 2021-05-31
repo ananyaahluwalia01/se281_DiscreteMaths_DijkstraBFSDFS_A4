@@ -49,9 +49,13 @@ public class EdgesLinkedListTest {
 		assertEquals(new Edge(new Node("5"), new Node("6"), 2), list.get(0));
 
 	}
-	
-	
-	
-	
+
+	@Test
+	public void testAppendA() {
+		list.append(new Edge(new Node("1"), new Node("2"), 1));
+		list.append(new Edge(new Node("3"), new Node("4"), 1));
+		list.append(new Edge(new Node("5"), new Node("6"), 2));
+		assertEquals(new Edge(new Node("5"), new Node("6"), 2), list.get(2));
+	}
 
 }
