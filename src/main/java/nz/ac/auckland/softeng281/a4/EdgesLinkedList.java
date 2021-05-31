@@ -102,7 +102,7 @@ public class EdgesLinkedList {
 		if (pos < 0 || pos > size() - 1) {
 			throw new InvalidPositionException("Position " + pos + " outside the list boundary");
 		}
-		if (size() < 1) {
+		if (size() == 1) {
 			head = null;
 		} else {
 			if (pos == 0) {
