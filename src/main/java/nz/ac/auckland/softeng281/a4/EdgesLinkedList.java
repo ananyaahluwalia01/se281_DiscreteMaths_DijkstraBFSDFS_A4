@@ -36,7 +36,12 @@ public class EdgesLinkedList {
 	 */
 
 	public void append(Edge edge) {
-		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+		if (head==null) {
+			head = edge;
+		} else {
+			Edge lastEdge = get(size()-1);
+			lastEdge.setNext(edge);
+		}
 	}
 
 	/**
