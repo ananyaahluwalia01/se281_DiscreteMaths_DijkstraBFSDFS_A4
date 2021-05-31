@@ -27,5 +27,11 @@ public class EdgesLinkedListTest {
 		list.prepend(new Edge(new Node("5"), new Node("6"), 1));
 		assertEquals(3, list.size());
 	}
+	
+	@Test
+	public void testSizeEmpty() {
+		assertEquals(0, list.size());
+	}
+	
 
 }
