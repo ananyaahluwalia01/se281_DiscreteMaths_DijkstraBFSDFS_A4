@@ -33,5 +33,13 @@ public class EdgesLinkedListTest {
 		assertEquals(0, list.size());
 	}
 	
+	@Test
+	public void testGet() {
+		list.prepend(new Edge(new Node("5"), new Node("6"), 2));
+		assertEquals(new Edge(new Node("5"), new Node("6"), 2), list.get(0));
+
+	}
+	
+	
 
 }
