@@ -84,6 +84,7 @@ public class EdgesLinkedList {
 		if (pos < 0 || pos > size() - 1) {
 			throw new InvalidPositionException("Position " + pos + " outside the list boundary");
 		}
+		// set the value at the point of interest to the next position in the list and insert e at that position
 		edge.setNext(get(pos));
 		get(pos-1).setNext(edge);
 		
