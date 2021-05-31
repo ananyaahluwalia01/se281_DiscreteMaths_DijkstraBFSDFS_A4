@@ -22,7 +22,10 @@ public class EdgesLinkedList {
      * @return void
      */
     public void prepend(Edge e) {
-        throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+    	Edge n = new Edge(e.getSource(), e.getTarget(), e.getWeight());
+		n.setNext(head);
+		head = n;
+		
     }
 
     /**
