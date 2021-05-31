@@ -22,9 +22,9 @@ public class EdgesLinkedList {
 	 * @return void
 	 */
 	public void prepend(Edge e) {
-		Edge n = new Edge(e.getSource(), e.getTarget(), e.getWeight());
-		n.setNext(head);
-		head = n;
+		// 
+		e.setNext(head);
+		head = e;
 
 	}
 
