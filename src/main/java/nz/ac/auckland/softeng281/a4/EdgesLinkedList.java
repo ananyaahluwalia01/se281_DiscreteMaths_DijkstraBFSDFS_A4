@@ -22,7 +22,7 @@ public class EdgesLinkedList {
 	 * @return void
 	 */
 	public void prepend(Edge e) {
-		// 
+		// set the value after e to the head edge, and set e as the new head edge.
 		e.setNext(head);
 		head = e;
 
@@ -37,8 +37,11 @@ public class EdgesLinkedList {
 
 	public void append(Edge edge) {
 		if (head==null) {
+			// if the list is empty, set the passed in edge to head
 			head = edge;
+
 		} else {
+			// otherwise set the edge after the last edge on the current list, to the passed in edge
 			Edge lastEdge = get(size()-1);
 			lastEdge.setNext(edge);
 		}
@@ -55,14 +58,19 @@ public class EdgesLinkedList {
 		if (pos < 0 || pos > size() - 1) {
 			throw new InvalidPositionException("Position " + pos + " outside the list boundary");
 		}
+
+		// create edge to store the edge being checked
+		Edge currentEdge = head;
 		int i = 0;
-		Edge t = head;
+
+		// go through list until you reach the position of interest 
 		while(i!=pos) {
 			++i;
-			t=t.getNext();
+			currentEdge = currentEdge.getNext();
 		}
 
-		return t;
+		// return edge at that position
+		return currentEdge;
 	}
 
 	/**
@@ -101,13 +109,17 @@ public class EdgesLinkedList {
 	 */
 
 	public int size() {
+
+		// create edge to store the edge being checked
+		Edge currentEdge = head;
 		int i = 0;
 
-		Edge t = head;
-		while(t!=null) {
+		// go through list until you find the space after last edge of the list (the tail which would be null)
+		while(currentEdge!=null) {
 			++i;
-			t=t.getNext();
+			currentEdge=currentEdge.getNext();
 		}
+		// return the pointer of the tail 
 		return i;
 	}
 
