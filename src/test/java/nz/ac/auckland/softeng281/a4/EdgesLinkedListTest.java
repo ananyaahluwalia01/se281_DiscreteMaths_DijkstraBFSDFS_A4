@@ -142,4 +142,29 @@ public class EdgesLinkedListTest {
 
 	}
 
+	@Test
+	public void testRemoveC() {
+		list.append(new Edge(new Node("1"), new Node("2"), 1));
+		list.append(new Edge(new Node("3"), new Node("4"), 1));
+		list.append(new Edge(new Node("5"), new Node("6"), 1));
+		list.append(new Edge(new Node("7"), new Node("8"), 1));
+		list.append(new Edge(new Node("9"), new Node("10"), 1));
+		list.append(new Edge(new Node("11"), new Node("12"), 1));
+
+		list.remove(4);
+		
+		assertEquals(list.size(), 5);
+		assertEquals(new Edge(new Node("1"), new Node("2"), 1), list.get(0));
+		assertEquals(new Edge(new Node("3"), new Node("4"), 1), list.get(1));
+		assertEquals(new Edge(new Node("5"), new Node("6"), 1), list.get(2));
+		assertEquals(new Edge(new Node("7"), new Node("8"), 1), list.get(3));
+		assertEquals(new Edge(new Node("11"), new Node("12"), 1), list.get(4));
+
+		try {
+			list.get(5);
+		} catch (InvalidPositionException e) {
+
+		}
+	}
+
 }

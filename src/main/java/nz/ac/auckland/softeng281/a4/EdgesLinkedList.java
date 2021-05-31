@@ -107,11 +107,11 @@ public class EdgesLinkedList {
 		} else {
 			if (pos == 0) {
 				head = get(1);
-				for (int i = pos+2; i < (size()-pos-1); i++) {
+				for (int i = pos+2; i < size(); i++) {
 					get(i-2).setNext(get(i));	
 				}
 			} else {
-				for (int i = pos+1; i < (size()-pos); i++) {
+				for (int i = pos+1; i < size(); i++) {
 					get(i-2).setNext(get(i));	
 				}
 			}
