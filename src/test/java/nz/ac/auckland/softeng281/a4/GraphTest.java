@@ -47,7 +47,7 @@ public class GraphTest {
             Path path = new Path(80, new Node("1"), new Node("2"), new Node("3"), new Node("4"), new Node("5"));
             assertEquals(path, graph.computeShortestPath(new Node("1"), new Node("5")));
         }
-
+        
     }
 
     public static class GraphSystemTest {
