@@ -1,7 +1,9 @@
 package nz.ac.auckland.softeng281.a4;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * You cannot add new fields.
@@ -84,7 +86,32 @@ public class Graph {
 	 * @return the Edge with the specific weight, null if no edge with the specif weight exists in teh graph
 	 */
 	public Edge searchEdgeByWeight(int weight) {
-		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+		if (!(root==null)) {
+			Set<Node> visited = new HashSet<>();
+			NodesStackAndQueue queue = new NodesStackAndQueue();
+			visited.add(root);
+			queue.append(root);
+
+			while(!queue.isEmpty()){
+				Node parentNode = queue.pop();
+				EdgesLinkedList childrenEdges = adjacencyMap.get(parentNode);
+
+				for (int i=0; i < (childrenEdges.size()); i++) {
+					int currentChildWeight = childrenEdges.get(i).getWeight();
+					if (currentChildWeight == weight) {
+						return childrenEdges.get(i);
+					}
+					parentNode = childrenEdges.get(i).getTarget();
+				}
+
+				if (!visited.contains(parentNode)) {
+					visited.add(parentNode);
+					queue.append(parentNode);
+				}
+			}
+
+		}
+		return null;
 	}
 
 
@@ -109,7 +136,34 @@ public class Graph {
 	 * -1 if no edge with the given source and target exists
 	 */
 	public int searchWeightByEdge(Node source, Node target) {
-		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+		if (!(root==null)) {
+			Set<Node> visited = new HashSet<>();
+			NodesStackAndQueue stack = new NodesStackAndQueue();
+			visited.add(root);
+			stack.push(root);
+
+			while(!stack.isEmpty()){
+				Node parentNode = stack.pop();
+				EdgesLinkedList childrenEdges = adjacencyMap.get(parentNode);
+
+				for (int i=0; i < (childrenEdges.size()); i++) {
+					Node currentChildSource = childrenEdges.get(i).getSource();
+					Node currentChildTarget = childrenEdges.get(i).getTarget();
+					
+					if ((currentChildSource.equals(source)) && (currentChildTarget.equals(currentChildTarget))) {
+						return childrenEdges.get(i).getWeight();
+					}
+					parentNode = childrenEdges.get(i).getTarget();
+				}
+
+				if (!visited.contains(parentNode)) {
+					visited.add(parentNode);
+					stack.push(parentNode);
+				}
+			}
+
+		}
+		return -1;
 	}
 
 
