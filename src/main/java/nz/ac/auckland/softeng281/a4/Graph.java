@@ -150,7 +150,7 @@ public class Graph {
 					Node currentChildSource = childrenEdges.get(i).getSource();
 					Node currentChildTarget = childrenEdges.get(i).getTarget();
 
-					if ((currentChildSource.equals(source)) && (currentChildTarget.equals(currentChildTarget))) {
+					if ((currentChildSource.equals(source)) && (currentChildTarget.equals(target))) {
 						return childrenEdges.get(i).getWeight();
 					}
 					parentNode = childrenEdges.get(i).getTarget();
@@ -179,23 +179,67 @@ public class Graph {
 	 * @return the shortest path between source and target
 	 */
 	public Path computeShortestPath(Node source, Node target) {
-		Set<Node> visited = new HashSet<>();
-		HashMap<Node, String> nodeAndDistance = new HashMap<>();
+		Set<Node> notVisited = new HashSet<>();
+
+		HashMap<Node, Integer> nodeAndDistance = new HashMap<>();
 		HashMap<Node, Node> nodeAndPrevious = new HashMap<>();
 
 		NodesStackAndQueue graphTargetNodes = getTargetFromAdjacencyMap();
-
+		graphTargetNodes.push(new Node("buffer"));
+		
 		for (int i = 0; i < graphTargetNodes.getCount(); i++) {
+			graphTargetNodes.pop();
 			if (!nodeAndDistance.containsKey(graphTargetNodes.peek())) {
-				nodeAndDistance.put(graphTargetNodes.peek(), "inf");
+				nodeAndDistance.put(graphTargetNodes.peek(), Integer.MAX_VALUE);
 				nodeAndPrevious.put(graphTargetNodes.peek(), null);
-				System.out.println(graphTargetNodes.peek());
-				graphTargetNodes.pop();
+
+				notVisited.add(graphTargetNodes.peek());
+
 			}
 		}
 
-		return null;
+		nodeAndDistance.put(source, 0);
+		Node leadNode = null;
+
+		while(!notVisited.isEmpty()) {
+
+			int smallestDistance = Integer.MAX_VALUE;
+			for (Node nodeBeingChecked : nodeAndDistance.keySet()) {
+				if (nodeAndDistance.get(nodeBeingChecked) < smallestDistance) {
+					smallestDistance = nodeAndDistance.get(nodeBeingChecked);
+					leadNode = nodeBeingChecked;
+				}
+			}
+
+			notVisited.remove(leadNode);
+
+			for(int i=0; i < adjacencyMap.get(leadNode).size(); i++) {
+				int newDistance = smallestDistance + adjacencyMap.get(leadNode).get(i).getWeight();
+
+				if (newDistance < nodeAndDistance.get(adjacencyMap.get(leadNode).get(i).getTarget())) {
+					nodeAndDistance.put(adjacencyMap.get(leadNode).get(i).getTarget(), newDistance);
+					nodeAndPrevious.put(adjacencyMap.get(leadNode).get(i).getTarget(), leadNode);
+				}
+			}
+		}
+
+		List<Node> returnedListForPath = new ArrayList<> ();
+		returnedListForPath.add(source);
+		int pathDistance = 0;
+		Node nodeStep = source;
+
+		while (!nodeAndDistance.isEmpty()) {
+			pathDistance =+ nodeAndDistance.get(nodeStep);
+			returnedListForPath.add(nodeAndPrevious.get(nodeStep));
+
+			nodeAndDistance.remove(nodeStep);
+			nodeStep = nodeAndPrevious.get(nodeStep);
+
+		}
+		return new Path(pathDistance, returnedListForPath);
+
 	}
+
 
 	protected NodesStackAndQueue getTargetFromAdjacencyMap() {
 
@@ -203,7 +247,7 @@ public class Graph {
 
 		for (Node key : adjacencyMap.keySet()) {
 			EdgesLinkedList currentLinkedList = adjacencyMap.get(key);
-			for (int i=0; i < (currentLinkedList.size()-1); i++) {
+			for (int i=0; i < (currentLinkedList.size()); i++) {
 				returnedList.append(adjacencyMap.get(key).get(i).getTarget());
 			}
 		}
