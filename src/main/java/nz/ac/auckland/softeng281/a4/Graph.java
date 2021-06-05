@@ -57,13 +57,12 @@ public class Graph {
 		if (adjacencyMap.containsKey(node)) {
 			return true;
 		} else {
-			for (Node key : adjacencyMap.keySet()) {
-				EdgesLinkedList check = adjacencyMap.get(key);
-				for (int i=0; i < (check.size()-1); i++) {
-					if (node.equals(check.get(i).getTarget())) {
-						return true;
-					}
+			NodesStackAndQueue graphTargetNodes = getTargetFromAdjacencyMap();
+			for (int i = 0; i < graphTargetNodes.getCount(); i++) {
+				if (node.equals(graphTargetNodes.peek())) {
+					return true;
 				}
+				graphTargetNodes.pop();
 			}
 		} 
 		return false;
@@ -183,10 +182,10 @@ public class Graph {
 		Set<Node> visited = new HashSet<>();
 		HashMap<Node, String> nodeAndDistance = new HashMap<>();
 		HashMap<Node, Node> nodeAndPrevious = new HashMap<>();
-		
+
 		NodesStackAndQueue graphTargetNodes = getTargetFromAdjacencyMap();
-		
-		for (int i = 0; i < graphTargetNodes.getCount()-1; i++) {
+
+		for (int i = 0; i < graphTargetNodes.getCount(); i++) {
 			if (!nodeAndDistance.containsKey(graphTargetNodes.peek())) {
 				nodeAndDistance.put(graphTargetNodes.peek(), "inf");
 				nodeAndPrevious.put(graphTargetNodes.peek(), null);
@@ -194,21 +193,21 @@ public class Graph {
 				graphTargetNodes.pop();
 			}
 		}
-		
+
 		return null;
 	}
 
 	protected NodesStackAndQueue getTargetFromAdjacencyMap() {
-		
+
 		NodesStackAndQueue returnedList = new NodesStackAndQueue();
-		
+
 		for (Node key : adjacencyMap.keySet()) {
 			EdgesLinkedList currentLinkedList = adjacencyMap.get(key);
 			for (int i=0; i < (currentLinkedList.size()-1); i++) {
 				returnedList.append(adjacencyMap.get(key).get(i).getTarget());
 			}
 		}
-		
+
 		return returnedList;
 	}
 
