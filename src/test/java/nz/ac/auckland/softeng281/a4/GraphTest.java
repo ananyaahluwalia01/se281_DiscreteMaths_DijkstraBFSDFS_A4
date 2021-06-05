@@ -47,6 +47,11 @@ public class GraphTest {
             Path path = new Path(80, new Node("1"), new Node("2"), new Node("3"), new Node("4"), new Node("5"));
             assertEquals(path, graph.computeShortestPath(new Node("1"), new Node("5")));
         }
+        // CHANGE THIS TEST
+        @Test
+        public void testIsNodeInGraph() {
+            assertTrue(graph.isNodeInGraph(new Node("1")));
+        }
         
     }
 
@@ -95,7 +100,41 @@ public class GraphTest {
             runTest("a.txt", "path 5 1");
             assertTrue(myOut.toString().contains("The shortest path is: 5 -> 4 -> 1 cost: 4"));
         }
-
+        
+        // ANANYA'S TESTS DFS, BFS, SHORTEST PATH
+        
+        @Test
+        public void testSearchWeightByEdgeForSelfLoop() {
+        	runTest("a.txt", "search 3 3");
+        	assertTrue(myOut.toString().contains("Given the edge from source 3 target 3 has weight: 2"));
+        }
+        
+        @Test
+        public void testSearchWeightByEdgeDoesNotExist() {
+        	runTest("a.txt", "search 3 4");
+        	assertTrue(myOut.toString().contains("There is no such edge with source : Node{value='3'} target: Node{value='4'}"));
+        }
+        
+        // should display the first occurrence according to BFS
+        @Test
+        public void testSearchEdgeByWeightMultipleSameWeight() {
+            runTest("a.txt", "search 1");
+            assertTrue(myOut.toString().contains("The edge searched having weight 1 is: 0-->0"));
+        }
+        
+        @Test
+        public void testSearchEdgeByWeightDoesNotExist() {
+            runTest("a.txt", "search 55");
+            assertTrue(myOut.toString().contains("There is no such edge with weight: 55"));
+        }
+        
+        // self loops only ignored for shortest path, NOT FOR DFS AND BFS (no edge with weight 0)
+        @Test
+        public void testSearchEdgeByWeightSelfLoop() {
+            runTest("a.txt", "search 0");
+            assertTrue(myOut.toString().contains("There is no such edge with weight: 0"));
+        }
+        
 
     }
 

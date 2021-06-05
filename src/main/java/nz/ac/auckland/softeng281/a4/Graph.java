@@ -236,7 +236,6 @@ public class Graph {
 
 		while (!nodeStep.equals(source)) {
 			returnedListForPath.add(0, nodeAndPrevious.get(nodeStep));
-
 			nodeStep = nodeAndPrevious.get(nodeStep);
 
 		}
