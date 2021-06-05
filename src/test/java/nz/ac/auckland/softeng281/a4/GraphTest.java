@@ -30,7 +30,6 @@ public class GraphTest {
             graph = new Graph(edges, weights);
         }
         
-        
         @Test
         public void testFindNode() {
             assertTrue(graph.isNodeInGraph(new Node("1")));
@@ -91,7 +90,6 @@ public class GraphTest {
             assertTrue(myOut.toString().contains("The edge searched having weight 5 is: 1-->3"));
         }
         
-        @Ignore
         @Test
         public void testShortestPathA() {
             runTest("a.txt", "path 5 1");
