@@ -1,5 +1,6 @@
 package nz.ac.auckland.softeng281.a4;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -149,7 +150,7 @@ public class Graph {
 				for (int i=0; i < (childrenEdges.size()); i++) {
 					Node currentChildSource = childrenEdges.get(i).getSource();
 					Node currentChildTarget = childrenEdges.get(i).getTarget();
-					
+
 					if ((currentChildSource.equals(source)) && (currentChildTarget.equals(currentChildTarget))) {
 						return childrenEdges.get(i).getWeight();
 					}
@@ -179,7 +180,37 @@ public class Graph {
 	 * @return the shortest path between source and target
 	 */
 	public Path computeShortestPath(Node source, Node target) {
-		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+		Set<Node> visited = new HashSet<>();
+		HashMap<Node, String> nodeAndDistance = new HashMap<>();
+		HashMap<Node, Node> nodeAndPrevious = new HashMap<>();
+		
+		NodesStackAndQueue graphTargetNodes = getTargetFromAdjacencyMap();
+		
+		for (int i = 0; i < graphTargetNodes.getCount()-1; i++) {
+			if (!nodeAndDistance.containsKey(graphTargetNodes.peek())) {
+				nodeAndDistance.put(graphTargetNodes.peek(), "inf");
+				nodeAndPrevious.put(graphTargetNodes.peek(), null);
+				System.out.println(graphTargetNodes.peek());
+				graphTargetNodes.pop();
+			}
+		}
+		
+		return null;
+	}
+
+	protected NodesStackAndQueue getTargetFromAdjacencyMap() {
+		
+		NodesStackAndQueue returnedList = new NodesStackAndQueue();
+		
+		for (Node key : adjacencyMap.keySet()) {
+			EdgesLinkedList currentLinkedList = adjacencyMap.get(key);
+			for (int i=0; i < (currentLinkedList.size()-1); i++) {
+				returnedList.append(adjacencyMap.get(key).get(i).getTarget());
+			}
+		}
+		
+		return returnedList;
 	}
 
 }
+
