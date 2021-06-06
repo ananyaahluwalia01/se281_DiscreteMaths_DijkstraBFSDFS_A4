@@ -210,10 +210,10 @@ public class Graph {
 	 * @return the shortest path between source and target
 	 */
 	public Path computeShortestPath(Node source, Node target) {
-		
+
 		// a HashSet of vertices to be processed  
 		Set<Node> notVisited = new HashSet<>();
-		
+
 		// HashMaps for nodes in the graph with their distance and previous nodes (respectively) 
 		HashMap<Node, Integer> nodeAndDistance = new HashMap<>();
 		HashMap<Node, Node> nodeAndPrevious = new HashMap<>();
@@ -236,14 +236,14 @@ public class Graph {
 
 			}
 		}
-		
+
 		// if asking for path from a node to itself (self loop)
 		if (source.equals(target)) {
-			
+
 			// regardless of whether graph has a weighted self loop return node -> node with weight 0
 			return new Path(0, source, target);
 		}
-		
+
 		// set the source node's distance to 0
 		nodeAndDistance.put(source, 0);
 
@@ -297,7 +297,7 @@ public class Graph {
 	protected int checkIfRelaxationNecessary(Node leadNode, int currentTargetIndex, HashMap<Node, Integer> nodeAndDistance, int smallestDistance) {
 		// calculate new distance by adding the lead node's distance to the weight of the edge to the target node.
 		int newDistance = smallestDistance + adjacencyMap.get(leadNode).get(currentTargetIndex).getWeight();
-		
+
 		// if the calculated distance is less than the distance stored, return new distance
 		if (newDistance < nodeAndDistance.get(adjacencyMap.get(leadNode).get(currentTargetIndex).getTarget())) {
 			return newDistance;
@@ -319,14 +319,14 @@ public class Graph {
 		List<Node> returnedListForPath = new ArrayList<> ();
 		returnedListForPath.add(target);
 		Node nodeStep = target;
-		
+
 		// add each previous step obtained from the HashMap to index one, to the start of the list.
 		while (!nodeStep.equals(source)) {
 			returnedListForPath.add(0, nodeAndPrevious.get(nodeStep));
 			nodeStep = nodeAndPrevious.get(nodeStep);
 
 		}
-		
+
 		return returnedListForPath;
 	}
 
@@ -336,13 +336,13 @@ public class Graph {
 	 * @return a NodesStackAndQueue of all the source nodes in the graph
 	 */
 	protected NodesStackAndQueue getAllTargetNodesFromAdjacencyMap() {
-		
+
 		// create returned list and already added to keep track of nodes
 		NodesStackAndQueue returnedList = new NodesStackAndQueue();
 		Set<Node> alreadyAdded = new HashSet<>();
 
 		for (Node key : adjacencyMap.keySet()) {
-			
+
 			// loop through edgesLinkedList in adjacencyMap and if the target node isn't in the list, add it
 			EdgesLinkedList currentLinkedList = adjacencyMap.get(key);
 			for (int i=0; i < (currentLinkedList.size()); i++) {

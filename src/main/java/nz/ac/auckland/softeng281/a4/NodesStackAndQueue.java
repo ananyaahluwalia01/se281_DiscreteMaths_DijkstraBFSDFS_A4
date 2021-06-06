@@ -54,7 +54,7 @@ public class NodesStackAndQueue {
 		if(data.isEmpty()) {
 			throw new EmptyException("Stack is empty.");
 		}
-		
+
 		// store data from  top of stack to return
 		Node out = data.get(front);
 
@@ -77,7 +77,7 @@ public class NodesStackAndQueue {
 		if(data.isEmpty()) {
 			throw new EmptyException("Stack is empty.");
 		}
-		
+
 		// return data from top of stack
 		return data.get(front);
 	}

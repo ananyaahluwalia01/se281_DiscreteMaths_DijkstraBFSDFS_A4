@@ -34,14 +34,14 @@ public class EdgesLinkedListTest {
 	public void testSizeEmpty() {
 		assertEquals(0, list.size());
 	}
-	
+
 	@Test
 	public void testSizeC() {
 		list.prepend(new Edge(new Node("3"), new Node("4"), 1));
 		list.prepend(new Edge(new Node("5"), new Node("6"), 1));
 		assertEquals(2, list.size());
 	}
-	
+
 	@Test
 	public void testSizePostRemove() {
 		list.prepend(new Edge(new Node("3"), new Node("4"), 1));
@@ -59,7 +59,7 @@ public class EdgesLinkedListTest {
 			fail();
 		}
 	}
-	
+
 	@Test
 	public void testGetB() {
 		try {
@@ -70,7 +70,7 @@ public class EdgesLinkedListTest {
 			fail();
 		}
 	}
-	
+
 	@Test
 	public void testGetC() {
 		try {
@@ -94,7 +94,7 @@ public class EdgesLinkedListTest {
 		assertEquals(new Edge(new Node("5"), new Node("6"), 2), list.get(0));
 
 	}
-	
+
 	@Test
 	public void testPrependC() {
 		list.prepend(new Edge(new Node("1"), new Node("2"), 1));
@@ -163,7 +163,7 @@ public class EdgesLinkedListTest {
 		assertEquals(new Edge(new Node("3"), new Node("4"), 1), list.get(1));
 		assertEquals(new Edge(new Node("5"), new Node("6"), 2), list.get(3));
 	}
-	
+
 	@Test
 	public void testInsertPosIsZero() {
 		list.prepend(new Edge(new Node("1"), new Node("2"), 1));
@@ -239,12 +239,12 @@ public class EdgesLinkedListTest {
 
 		}
 	}
-	
+
 	@Test
 	public void testRemoveOneItemList() {
 		list.append(new Edge(new Node("1"), new Node("2"), 1));
 		list.remove(0);
-		
+
 		assertEquals(list.size(), 0);
 	}
 

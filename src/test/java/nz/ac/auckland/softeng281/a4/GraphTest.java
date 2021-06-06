@@ -52,17 +52,17 @@ public class GraphTest {
 		public void testIsNodeInGraphReturnsFalseA() {
 			assertFalse(graph.isNodeInGraph(new Node("9")));
 		}
-		
+
 		@Test
 		public void testIsNodeInGraphReturnsFalseB() {
 			assertFalse(graph.isNodeInGraph(new Node("0")));
 		}
-		
+
 		@Test
 		public void testIsNodeInGraphReturnsTrueA() {
 			assertTrue(graph.isNodeInGraph(new Node("3")));
 		}
-		
+
 		@Test
 		public void testShortestPathNotTargetButStillPathToSelf() {
 			List<String> edges = Arrays.asList("1,2", "2,3", "3,4", "4,5");

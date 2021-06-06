@@ -86,7 +86,7 @@ public class EdgesLinkedList {
 		}
 		// set the value at the point of interest to the next position in the list
 		edge.setNext(get(pos));
-		
+
 		// insert the edge into the position of interest
 		if (pos == 0) {
 			head = edge;
@@ -107,28 +107,28 @@ public class EdgesLinkedList {
 		if (pos < 0 || pos > size() - 1) {
 			throw new InvalidPositionException("Position " + pos + " outside the list boundary");
 		}
-		
+
 		// if the list only has one element, remove that element
 		if (size() == 1) {
 			head = null;
 		} else {
-			
+
 			// if removing start element, shift all the elements ahead of the head back one position
 			if (pos == 0) {
 				head = get(1);
-				
+
 				for (int i = pos+2; i < size(); i++) {
 					get(i-2).setNext(get(i));	
 				}
-				
+
 			} else {
-				
+
 				// shift all elements after the pos back one position
 				for (int i = pos+1; i < size(); i++) {
 					get(i-2).setNext(get(i));	
 				}
 			}
-			
+
 			// set the final element's previous index to null
 			get(size()-1).setNext(null);
 		}

@@ -16,14 +16,14 @@ public class NodesStackAndQueueTest {
 	public void setUp() {
 		stack = new NodesStackAndQueue();
 	}
-	
+
 	@Test
 	public void appendTestA() {
 		stack.append(new Node("10"));
-		
+
 		assertEquals(stack.peek(), new Node("10"));
 	}
-	
+
 	@Test
 	public void appendTestB() {
 		stack.append(new Node("10"));
@@ -33,8 +33,8 @@ public class NodesStackAndQueueTest {
 		assertTrue("The size is correct", stack.getCount() == 3);
 		assertEquals(stack.peek(), new Node("10"));
 	}
-	
-	
+
+
 	@Test
 	public void isEmptyEmptyStack() {
 		assertTrue(stack.isEmpty());
@@ -46,7 +46,7 @@ public class NodesStackAndQueueTest {
 		stack.append(new Node("4"));
 		assertFalse(stack.isEmpty());
 	}
-	
+
 	@Test
 	public void isEmptyFullThenEmpty() {
 		stack.push(new Node("4"));
@@ -112,7 +112,7 @@ public class NodesStackAndQueueTest {
 
 		}
 	}
-	
+
 	public void peekTestCPoppedButNotEmpty() {
 		try {
 			stack.append(new Node("10"));
@@ -120,18 +120,18 @@ public class NodesStackAndQueueTest {
 			stack.append(new Node("30"));
 
 			stack.pop();
-			
+
 			Node returned = stack.peek();
 
 			Node expected = new Node("20");
 
 			assertEquals(returned, expected);
-			
+
 		} catch (EmptyException e) {
 			fail();
 		}
 	}
-	
+
 
 	@Test
 	public void pushTestA() {
@@ -149,7 +149,7 @@ public class NodesStackAndQueueTest {
 		assertEquals(returned, expected);
 
 	}
-	
+
 	@Test
 	public void pushTestBEmpty() {
 
@@ -161,7 +161,7 @@ public class NodesStackAndQueueTest {
 		assertEquals(returned, expected);
 
 	}
-	
+
 	@Test
 	public void pushTestCPushPop() {
 
@@ -170,7 +170,7 @@ public class NodesStackAndQueueTest {
 		stack.append(new Node("30"));
 		stack.push(new Node("5"));
 		stack.push(new Node("2"));
-		
+
 		stack.pop();
 
 		Node returned = stack.peek();
