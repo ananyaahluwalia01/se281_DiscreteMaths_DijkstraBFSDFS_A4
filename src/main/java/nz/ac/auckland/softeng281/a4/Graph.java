@@ -239,13 +239,9 @@ public class Graph {
 		
 		// if asking for path from a node to itself (self loop)
 		if (source.equals(target)) {
-			List<Node> pathList = new ArrayList<> ();
-			
-			pathList.add(source);
-			pathList.add(target);
 			
 			// regardless of whether graph has a weighted self loop return node -> node with weight 0
-			return new Path(0, pathList);
+			return new Path(0, source, target);
 		}
 		
 		// set the source node's distance to 0
