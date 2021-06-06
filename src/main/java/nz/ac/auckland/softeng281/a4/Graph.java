@@ -54,12 +54,12 @@ public class Graph {
 	 * @return true if adjacencyMap contains the node, false otherwise.
 	 */
 	public boolean isNodeInGraph(Node node) {
-		
+
 		// if the node is a source node, return true
 		if (adjacencyMap.containsKey(node)) {
 			return true;
 		} else {
-			
+
 			// if the node is a target node, return true (using helper method)
 			NodesStackAndQueue graphTargetNodes = getAllTargetNodesFromAdjacencyMap();
 			for (int i = 0; i < graphTargetNodes.getCount(); i++) {
@@ -69,7 +69,7 @@ public class Graph {
 				graphTargetNodes.pop();
 			}
 		} 
-		
+
 		// otherwise false
 		return false;
 	}
@@ -92,10 +92,10 @@ public class Graph {
 	 * @return the Edge with the specific weight, null if no edge with the specif weight exists in teh graph
 	 */
 	public Edge searchEdgeByWeight(int weight) {
-		
+
 		// if the graph is not empty
 		if (!(root==null)) {
-			
+
 			// create set to store discovered nodes and queue to store node being examined
 			Set<Node> visited = new HashSet<>();
 			NodesStackAndQueue queue = new NodesStackAndQueue();
@@ -103,24 +103,24 @@ public class Graph {
 			queue.append(root);
 
 			while(!queue.isEmpty()){
-				
+
 				// set the parent node to the node being examined and the children edges to the edges where the parent node is the source
 				Node parentNode = queue.pop();
 				EdgesLinkedList childrenEdges = adjacencyMap.get(parentNode);
-				
+
 				// for all the children edges of the parent node, check if the weight of interest is the weight of the edge
 				for (int i=0; i < (childrenEdges.size()); i++) {
 					int currentChildWeight = childrenEdges.get(i).getWeight();
 					if (currentChildWeight == weight) {
-						
-						// return the edge with the weight of interest
+
+						// return the edge of the weight of interest
 						return childrenEdges.get(i);
 					}
-					
+
 					// set the new parent edge to the nth target of the old parent source 
 					parentNode = childrenEdges.get(i).getTarget();
 				}
-				
+
 				// if the new parentNode has not already been discovered, then add it to the discovered hashset and add it to queue.
 				if (!visited.contains(parentNode)) {
 					visited.add(parentNode);
@@ -155,26 +155,37 @@ public class Graph {
 	 * -1 if no edge with the given source and target exists
 	 */
 	public int searchWeightByEdge(Node source, Node target) {
+
+		// if the graph is not empty
 		if (!(root==null)) {
+
+			// create set to store discovered nodes and stack to store node being examined
 			Set<Node> visited = new HashSet<>();
 			NodesStackAndQueue stack = new NodesStackAndQueue();
 			visited.add(root);
 			stack.push(root);
 
 			while(!stack.isEmpty()){
+
+				// set the parent node to the node being examined and the children edges to the edges where the parent node is the source
 				Node parentNode = stack.pop();
 				EdgesLinkedList childrenEdges = adjacencyMap.get(parentNode);
 
+				// for all the children edges of the parent node, check if the source and target of interest is the source and target of the edge
 				for (int i=0; i < (childrenEdges.size()); i++) {
 					Node currentChildSource = childrenEdges.get(i).getSource();
 					Node currentChildTarget = childrenEdges.get(i).getTarget();
 
 					if ((currentChildSource.equals(source)) && (currentChildTarget.equals(target))) {
+						// return the weight of the edge of interest
 						return childrenEdges.get(i).getWeight();
 					}
+
+					// set the new parent edge to the nth target of the old parent source 
 					parentNode = childrenEdges.get(i).getTarget();
 				}
 
+				// if the new parentNode has not already been discovered, then add it to the discovered hashset and add it to queue.
 				if (!visited.contains(parentNode)) {
 					visited.add(parentNode);
 					stack.push(parentNode);
@@ -182,6 +193,7 @@ public class Graph {
 			}
 
 		}
+		// if no edge found, return null
 		return -1;
 	}
 
@@ -198,20 +210,22 @@ public class Graph {
 	 * @return the shortest path between source and target
 	 */
 	public Path computeShortestPath(Node source, Node target) {
+		
+		// a HashSet of vertices to be processed  
 		Set<Node> notVisited = new HashSet<>();
-
+		
+		// HashMaps for nodes in the graph with their distance and previous nodes (respectively) 
 		HashMap<Node, Integer> nodeAndDistance = new HashMap<>();
 		HashMap<Node, Node> nodeAndPrevious = new HashMap<>();
 
+		// document all the nodes in a graph, and add a buffer node to the top
 		NodesStackAndQueue graphNodes = getAllTargetNodesFromAdjacencyMap();
-
-		for(Node sourceNode : adjacencyMap.keySet()) {
+		for (Node sourceNode : adjacencyMap.keySet()) {
 			graphNodes.append(sourceNode);
 		}
-
 		graphNodes.push(new Node("buffer"));
 
-
+		// add all the nodes to the HashMaps, along with initialized values of distances = infinity, previous = null
 		for (int i = 0; i < graphNodes.getCount(); i++) {
 			graphNodes.pop();
 			if (!nodeAndDistance.containsKey(graphNodes.peek())) {
@@ -222,12 +236,30 @@ public class Graph {
 
 			}
 		}
-
+		
+		// if asking for path from a node to itself
+		if (source.equals(target)) {
+			List<Node> pathList = new ArrayList<> ();
+			
+			pathList.add(source);
+			pathList.add(target);
+			
+			// if graph has a weighted self loop return node -> node with weight, otherwise return with weight 0
+			if (searchWeightByEdge(source, target) != -1) {
+				return new Path(searchWeightByEdge(source, target), pathList);
+			}
+			return new Path(0, pathList);
+		}
+		
+		// set the source node's distance to 0
 		nodeAndDistance.put(source, 0);
+
+		// Initialize the leadNode: the lead vertex for the current iteration
 		Node leadNode = null;
 
 		while(!notVisited.isEmpty()) {
 
+			// set the lead node to the node with the smallest distance
 			int smallestDistance = Integer.MAX_VALUE;
 			for (Node nodeBeingChecked : notVisited) {
 				if (nodeAndDistance.get(nodeBeingChecked) < smallestDistance) {
@@ -236,13 +268,15 @@ public class Graph {
 				}
 			}
 
+			// mark lead node as visited
 			notVisited.remove(leadNode);
 
+			// relax edges where lead node is the source edge if applies (check using helper method)
 			if (adjacencyMap.containsKey(leadNode)) {
 				for(int currentTargetIndex=0; currentTargetIndex < adjacencyMap.get(leadNode).size(); currentTargetIndex++) {
-					
+
 					int newDistance = checkIfRelaxationNecessary(leadNode, currentTargetIndex, nodeAndDistance, smallestDistance);
-					
+
 					if (newDistance != -1) {
 						nodeAndDistance.put(adjacencyMap.get(leadNode).get(currentTargetIndex).getTarget(), newDistance);
 						nodeAndPrevious.put(adjacencyMap.get(leadNode).get(currentTargetIndex).getTarget(), leadNode);
@@ -251,12 +285,15 @@ public class Graph {
 			}
 		}
 
+		// return the path found using the helper method
 		return new Path(nodeAndDistance.get(target), constructPath(source, target, nodeAndPrevious));
 
 	}
 
-	
+
 	/**
+	 * Check if relaxation is necessary, i.e. if the distance found is smaller 
+	 * than the node's existing distance.
 	 * 
 	 * @param leadNode
 	 * @param currentTargetIndex
@@ -265,8 +302,10 @@ public class Graph {
 	 * @return smallest distance value, if it is smaller than current distance, or -1 if smallest distance is greater than current distance
 	 */
 	protected int checkIfRelaxationNecessary(Node leadNode, int currentTargetIndex, HashMap<Node, Integer> nodeAndDistance, int smallestDistance) {
+		// calculate new distance by adding the lead node's distance to the weight of the edge to the target node.
 		int newDistance = smallestDistance + adjacencyMap.get(leadNode).get(currentTargetIndex).getWeight();
-
+		
+		// if the calculated distance is less than the distance stored, return new distance
 		if (newDistance < nodeAndDistance.get(adjacencyMap.get(leadNode).get(currentTargetIndex).getTarget())) {
 			return newDistance;
 		}
@@ -275,6 +314,7 @@ public class Graph {
 	}
 
 	/**
+	 * Construct the path using previousNodes stored in the hashmap
 	 * 
 	 * @param source
 	 * @param target
@@ -282,36 +322,23 @@ public class Graph {
 	 * @return a list of the nodes making up the shortest path 
 	 */
 	protected List<Node> constructPath(Node source, Node target, HashMap<Node, Node> nodeAndPrevious) {
+		// add the target/final step to the returned list first
 		List<Node> returnedListForPath = new ArrayList<> ();
 		returnedListForPath.add(target);
 		Node nodeStep = target;
-
+		
+		// add each previous step obtained from the HashMap to index one, to the start of the list.
 		while (!nodeStep.equals(source)) {
 			returnedListForPath.add(0, nodeAndPrevious.get(nodeStep));
 			nodeStep = nodeAndPrevious.get(nodeStep);
 
 		}
-
+		
 		return returnedListForPath;
-
 	}
 
 	/**
-	 * 
-	 * @return a NodesStackAndQueue of all the source nodes in the graph
-	 */
-	protected NodesStackAndQueue getAllSourceNodesFromAdjacencyMap() {
-
-		NodesStackAndQueue returnedList = new NodesStackAndQueue();
-		for (Node key : adjacencyMap.keySet()) {
-			returnedList.append(key);
-		}
-
-		return returnedList;
-
-	}
-
-	/**
+	 * Gather all the target nodes from the adjacency map
 	 * 
 	 * @return a NodesStackAndQueue of all the source nodes in the graph
 	 */
@@ -321,6 +348,7 @@ public class Graph {
 		Set<Node> alreadyAdded = new HashSet<>();
 
 		for (Node key : adjacencyMap.keySet()) {
+
 			EdgesLinkedList currentLinkedList = adjacencyMap.get(key);
 			for (int i=0; i < (currentLinkedList.size()); i++) {
 				if (!alreadyAdded.contains(adjacencyMap.get(key).get(i).getTarget())) {

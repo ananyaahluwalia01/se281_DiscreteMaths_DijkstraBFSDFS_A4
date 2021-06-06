@@ -47,6 +47,7 @@ public class GraphTest {
             Path path = new Path(80, new Node("1"), new Node("2"), new Node("3"), new Node("4"), new Node("5"));
             assertEquals(path, graph.computeShortestPath(new Node("1"), new Node("5")));
         }
+        
         // CHANGE THIS TEST
         @Test
         public void testIsNodeInGraph() {
@@ -133,6 +134,18 @@ public class GraphTest {
         public void testSearchEdgeByWeightSelfLoop() {
             runTest("a.txt", "search 0");
             assertTrue(myOut.toString().contains("There is no such edge with weight: 0"));
+        }
+        
+        @Test
+        public void testShortestPathB() {
+        	runTest("a.txt", "path 4 0");
+            assertTrue(myOut.toString().contains("The shortest path is: 4 -> 2 -> 0 cost: 2"));
+        }
+        
+        @Test
+        public void testShortestPathC() {
+        	runTest("a.txt", "path 3 3");
+            assertTrue(myOut.toString().contains("The shortest path is: 3 -> 3 cost: 2"));
         }
         
 
