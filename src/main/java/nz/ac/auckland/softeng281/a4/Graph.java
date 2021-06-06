@@ -57,7 +57,7 @@ public class Graph {
 		if (adjacencyMap.containsKey(node)) {
 			return true;
 		} else {
-			NodesStackAndQueue graphTargetNodes = getTargetFromAdjacencyMap();
+			NodesStackAndQueue graphTargetNodes = getAllTargetNodesFromAdjacencyMap();
 			for (int i = 0; i < graphTargetNodes.getCount(); i++) {
 				if (node.equals(graphTargetNodes.peek())) {
 					return true;
@@ -184,7 +184,8 @@ public class Graph {
 		HashMap<Node, Integer> nodeAndDistance = new HashMap<>();
 		HashMap<Node, Node> nodeAndPrevious = new HashMap<>();
 
-		NodesStackAndQueue graphNodes = getTargetFromAdjacencyMap();
+		NodesStackAndQueue graphNodes = getAllTargetNodesFromAdjacencyMap();
+
 		for(Node sourceNode : adjacencyMap.keySet()) {
 			graphNodes.append(sourceNode);
 		}
@@ -230,6 +231,18 @@ public class Graph {
 			}
 		}
 
+		return new Path(nodeAndDistance.get(target), constructPath(source, target, nodeAndPrevious));
+
+	}
+
+	/**
+	 * 
+	 * @param source
+	 * @param target
+	 * @param nodeAndPrevious
+	 * @return a list of the nodes making up the shortest path 
+	 */
+	protected List<Node> constructPath(Node source, Node target, HashMap<Node, Node> nodeAndPrevious) {
 		List<Node> returnedListForPath = new ArrayList<> ();
 		returnedListForPath.add(target);
 		Node nodeStep = target;
@@ -239,19 +252,43 @@ public class Graph {
 			nodeStep = nodeAndPrevious.get(nodeStep);
 
 		}
-		return new Path(nodeAndDistance.get(target), returnedListForPath);
+
+		return returnedListForPath;
 
 	}
 
-
-	protected NodesStackAndQueue getTargetFromAdjacencyMap() {
+	/**
+	 * 
+	 * @return a NodesStackAndQueue of all the source nodes in the graph
+	 */
+	protected NodesStackAndQueue getAllSourceNodesFromAdjacencyMap() {
 
 		NodesStackAndQueue returnedList = new NodesStackAndQueue();
+		for (Node key : adjacencyMap.keySet()) {
+			returnedList.append(key);
+		}
+
+		return returnedList;
+
+	}
+
+	/**
+	 * 
+	 * @return a NodesStackAndQueue of all the source nodes in the graph
+	 */
+	protected NodesStackAndQueue getAllTargetNodesFromAdjacencyMap() {
+
+		NodesStackAndQueue returnedList = new NodesStackAndQueue();
+		Set<Node> alreadyAdded = new HashSet<>();
 
 		for (Node key : adjacencyMap.keySet()) {
 			EdgesLinkedList currentLinkedList = adjacencyMap.get(key);
 			for (int i=0; i < (currentLinkedList.size()); i++) {
-				returnedList.append(adjacencyMap.get(key).get(i).getTarget());
+				if (!alreadyAdded.contains(adjacencyMap.get(key).get(i).getTarget())) {
+					returnedList.append(adjacencyMap.get(key).get(i).getTarget());
+					alreadyAdded.add(adjacencyMap.get(key).get(i).getTarget());
+				}
+
 			}
 		}
 
