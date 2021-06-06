@@ -54,9 +54,13 @@ public class Graph {
 	 * @return true if adjacencyMap contains the node, false otherwise.
 	 */
 	public boolean isNodeInGraph(Node node) {
+		
+		// if the node is a source node, return true
 		if (adjacencyMap.containsKey(node)) {
 			return true;
 		} else {
+			
+			// if the node is a target node, return true (using helper method)
 			NodesStackAndQueue graphTargetNodes = getAllTargetNodesFromAdjacencyMap();
 			for (int i = 0; i < graphTargetNodes.getCount(); i++) {
 				if (node.equals(graphTargetNodes.peek())) {
@@ -65,6 +69,8 @@ public class Graph {
 				graphTargetNodes.pop();
 			}
 		} 
+		
+		// otherwise false
 		return false;
 	}
 
@@ -86,24 +92,36 @@ public class Graph {
 	 * @return the Edge with the specific weight, null if no edge with the specif weight exists in teh graph
 	 */
 	public Edge searchEdgeByWeight(int weight) {
+		
+		// if the graph is not empty
 		if (!(root==null)) {
+			
+			// create set to store discovered nodes and queue to store node being examined
 			Set<Node> visited = new HashSet<>();
 			NodesStackAndQueue queue = new NodesStackAndQueue();
 			visited.add(root);
 			queue.append(root);
 
 			while(!queue.isEmpty()){
+				
+				// set the parent node to the node being examined and the children edges to the edges where the parent node is the source
 				Node parentNode = queue.pop();
 				EdgesLinkedList childrenEdges = adjacencyMap.get(parentNode);
-
+				
+				// for all the children edges of the parent node, check if the weight of interest is the weight of the edge
 				for (int i=0; i < (childrenEdges.size()); i++) {
 					int currentChildWeight = childrenEdges.get(i).getWeight();
 					if (currentChildWeight == weight) {
+						
+						// return the edge with the weight of interest
 						return childrenEdges.get(i);
 					}
+					
+					// set the new parent edge to the nth target of the old parent source 
 					parentNode = childrenEdges.get(i).getTarget();
 				}
-
+				
+				// if the new parentNode has not already been discovered, then add it to the discovered hashset and add it to queue.
 				if (!visited.contains(parentNode)) {
 					visited.add(parentNode);
 					queue.append(parentNode);
@@ -111,6 +129,7 @@ public class Graph {
 			}
 
 		}
+		// if no edge found, return null
 		return null;
 	}
 
@@ -220,12 +239,13 @@ public class Graph {
 			notVisited.remove(leadNode);
 
 			if (adjacencyMap.containsKey(leadNode)) {
-				for(int i=0; i < adjacencyMap.get(leadNode).size(); i++) {
-					int newDistance = smallestDistance + adjacencyMap.get(leadNode).get(i).getWeight();
-
-					if (newDistance < nodeAndDistance.get(adjacencyMap.get(leadNode).get(i).getTarget())) {
-						nodeAndDistance.put(adjacencyMap.get(leadNode).get(i).getTarget(), newDistance);
-						nodeAndPrevious.put(adjacencyMap.get(leadNode).get(i).getTarget(), leadNode);
+				for(int currentTargetIndex=0; currentTargetIndex < adjacencyMap.get(leadNode).size(); currentTargetIndex++) {
+					
+					int newDistance = checkIfRelaxationNecessary(leadNode, currentTargetIndex, nodeAndDistance, smallestDistance);
+					
+					if (newDistance != -1) {
+						nodeAndDistance.put(adjacencyMap.get(leadNode).get(currentTargetIndex).getTarget(), newDistance);
+						nodeAndPrevious.put(adjacencyMap.get(leadNode).get(currentTargetIndex).getTarget(), leadNode);
 					}
 				}
 			}
@@ -233,6 +253,25 @@ public class Graph {
 
 		return new Path(nodeAndDistance.get(target), constructPath(source, target, nodeAndPrevious));
 
+	}
+
+	
+	/**
+	 * 
+	 * @param leadNode
+	 * @param currentTargetIndex
+	 * @param nodeAndDistance
+	 * @param smallestDistance
+	 * @return smallest distance value, if it is smaller than current distance, or -1 if smallest distance is greater than current distance
+	 */
+	protected int checkIfRelaxationNecessary(Node leadNode, int currentTargetIndex, HashMap<Node, Integer> nodeAndDistance, int smallestDistance) {
+		int newDistance = smallestDistance + adjacencyMap.get(leadNode).get(currentTargetIndex).getWeight();
+
+		if (newDistance < nodeAndDistance.get(adjacencyMap.get(leadNode).get(currentTargetIndex).getTarget())) {
+			return newDistance;
+		}
+
+		return -1;
 	}
 
 	/**
