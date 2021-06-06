@@ -9,7 +9,7 @@ public class NodesStackAndQueue {
 	private ArrayList<Node> data;
 
 	public NodesStackAndQueue() {
-		// initialise instance fields
+		// initialize instance fields
 		data = new ArrayList <>();
 		front = 0;
 		rear = 0;
@@ -36,6 +36,7 @@ public class NodesStackAndQueue {
 	 * @param node
 	 */
 	public void push(Node node) {
+		// add data to front/top of stack
 		data.add(front, node);
 
 		// increment rear and count as size of stack has increased
@@ -53,6 +54,8 @@ public class NodesStackAndQueue {
 		if(data.isEmpty()) {
 			throw new EmptyException("Stack is empty.");
 		}
+		
+		// store data from  top of stack to return
 		Node out = data.get(front);
 
 		// increment front as the popped element is no longer part of the stack
@@ -74,18 +77,21 @@ public class NodesStackAndQueue {
 		if(data.isEmpty()) {
 			throw new EmptyException("Stack is empty.");
 		}
+		
+		// return data from top of stack
 		return data.get(front);
 	}
 
 	/**
-	 * append an element at the end/bottom/rear of the stack
+	 * append an element at the end/bottom/rear of the queue
 	 *
 	 * @param node
 	 */
 	public void append(Node node) { 
+		// add data to end of queue
 		data.add(rear, node);
 
-		// increment count and rear as size of stack has increased
+		// increment count and rear as size of queue has increased
 		++rear;
 		++count;
 	}
