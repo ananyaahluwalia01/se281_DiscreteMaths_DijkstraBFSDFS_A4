@@ -244,10 +244,7 @@ public class Graph {
 			pathList.add(source);
 			pathList.add(target);
 			
-			// if graph has a weighted self loop return node -> node with weight, otherwise return with weight 0
-			if (searchWeightByEdge(source, target) != -1) {
-				return new Path(searchWeightByEdge(source, target), pathList);
-			}
+			// regardless of whether graph has a weighted self loop return node -> node with weight 0
 			return new Path(0, pathList);
 		}
 		

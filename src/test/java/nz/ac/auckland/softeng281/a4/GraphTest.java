@@ -145,9 +145,14 @@ public class GraphTest {
         @Test
         public void testShortestPathC() {
         	runTest("a.txt", "path 3 3");
-            assertTrue(myOut.toString().contains("The shortest path is: 3 -> 3 cost: 2"));
+            assertTrue(myOut.toString().contains("The shortest path is: 3 -> 3 cost: 0"));
         }
         
+        @Test
+        public void testShortestPathD() {
+        	runTest("b.txt", "path 3 1");
+            assertTrue(myOut.toString().contains("The shortest path is: 3 -> 3 cost: 0"));
+        }
 
     }
 
