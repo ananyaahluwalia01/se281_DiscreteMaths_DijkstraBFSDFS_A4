@@ -237,7 +237,7 @@ public class Graph {
 			}
 		}
 		
-		// if asking for path from a node to itself
+		// if asking for path from a node to itself (self loop)
 		if (source.equals(target)) {
 			List<Node> pathList = new ArrayList<> ();
 			
@@ -340,12 +340,14 @@ public class Graph {
 	 * @return a NodesStackAndQueue of all the source nodes in the graph
 	 */
 	protected NodesStackAndQueue getAllTargetNodesFromAdjacencyMap() {
-
+		
+		// create returned list and already added to keep track of nodes
 		NodesStackAndQueue returnedList = new NodesStackAndQueue();
 		Set<Node> alreadyAdded = new HashSet<>();
 
 		for (Node key : adjacencyMap.keySet()) {
-
+			
+			// loop through edgesLinkedList in adjacencyMap and if the target node isn't in the list, add it
 			EdgesLinkedList currentLinkedList = adjacencyMap.get(key);
 			for (int i=0; i < (currentLinkedList.size()); i++) {
 				if (!alreadyAdded.contains(adjacencyMap.get(key).get(i).getTarget())) {
@@ -355,7 +357,7 @@ public class Graph {
 
 			}
 		}
-
+		// return list of nodes
 		return returnedList;
 	}
 
