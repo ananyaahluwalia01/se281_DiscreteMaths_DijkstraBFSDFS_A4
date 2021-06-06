@@ -93,42 +93,39 @@ public class Graph {
 	 */
 	public Edge searchEdgeByWeight(int weight) {
 
-		// if the graph is not empty
-		if (!(root==null)) {
+		// create set to store discovered nodes and queue to store node being examined
+		Set<Node> visited = new HashSet<>();
+		NodesStackAndQueue queue = new NodesStackAndQueue();
+		visited.add(root);
+		queue.append(root);
 
-			// create set to store discovered nodes and queue to store node being examined
-			Set<Node> visited = new HashSet<>();
-			NodesStackAndQueue queue = new NodesStackAndQueue();
-			visited.add(root);
-			queue.append(root);
+		while(!queue.isEmpty()){
 
-			while(!queue.isEmpty()){
+			// set the parent node to the node being examined and the children edges to the edges where the parent node is the source
+			Node parentNode = queue.pop();
+			EdgesLinkedList childrenEdges = adjacencyMap.get(parentNode);
 
-				// set the parent node to the node being examined and the children edges to the edges where the parent node is the source
-				Node parentNode = queue.pop();
-				EdgesLinkedList childrenEdges = adjacencyMap.get(parentNode);
+			// for all the children edges of the parent node, check if the weight of interest is the weight of the edge
+			for (int i=0; i < (childrenEdges.size()); i++) {
+				int currentChildWeight = childrenEdges.get(i).getWeight();
+				if (currentChildWeight == weight) {
 
-				// for all the children edges of the parent node, check if the weight of interest is the weight of the edge
-				for (int i=0; i < (childrenEdges.size()); i++) {
-					int currentChildWeight = childrenEdges.get(i).getWeight();
-					if (currentChildWeight == weight) {
-
-						// return the edge of the weight of interest
-						return childrenEdges.get(i);
-					}
-
-					// set the new parent edge to the nth target of the old parent source 
-					parentNode = childrenEdges.get(i).getTarget();
+					// return the edge of the weight of interest
+					return childrenEdges.get(i);
 				}
 
-				// if the new parentNode has not already been discovered, then add it to the discovered hashset and add it to queue.
-				if (!visited.contains(parentNode)) {
-					visited.add(parentNode);
-					queue.append(parentNode);
-				}
+				// set the new parent edge to the nth target of the old parent source 
+				parentNode = childrenEdges.get(i).getTarget();
 			}
 
+			// if the new parentNode has not already been discovered, then add it to the discovered hashset and add it to queue.
+			if (!visited.contains(parentNode)) {
+				visited.add(parentNode);
+				queue.append(parentNode);
+			}
 		}
+
+
 		// if no edge found, return null
 		return null;
 	}
@@ -156,43 +153,40 @@ public class Graph {
 	 */
 	public int searchWeightByEdge(Node source, Node target) {
 
-		// if the graph is not empty
-		if (!(root==null)) {
+		// create set to store discovered nodes and stack to store node being examined
+		Set<Node> visited = new HashSet<>();
+		NodesStackAndQueue stack = new NodesStackAndQueue();
+		visited.add(root);
+		stack.push(root);
 
-			// create set to store discovered nodes and stack to store node being examined
-			Set<Node> visited = new HashSet<>();
-			NodesStackAndQueue stack = new NodesStackAndQueue();
-			visited.add(root);
-			stack.push(root);
+		while(!stack.isEmpty()){
 
-			while(!stack.isEmpty()){
+			// set the parent node to the node being examined and the children edges to the edges where the parent node is the source
+			Node parentNode = stack.pop();
+			EdgesLinkedList childrenEdges = adjacencyMap.get(parentNode);
 
-				// set the parent node to the node being examined and the children edges to the edges where the parent node is the source
-				Node parentNode = stack.pop();
-				EdgesLinkedList childrenEdges = adjacencyMap.get(parentNode);
+			// for all the children edges of the parent node, check if the source and target of interest is the source and target of the edge
+			for (int i=0; i < (childrenEdges.size()); i++) {
+				Node currentChildSource = childrenEdges.get(i).getSource();
+				Node currentChildTarget = childrenEdges.get(i).getTarget();
 
-				// for all the children edges of the parent node, check if the source and target of interest is the source and target of the edge
-				for (int i=0; i < (childrenEdges.size()); i++) {
-					Node currentChildSource = childrenEdges.get(i).getSource();
-					Node currentChildTarget = childrenEdges.get(i).getTarget();
-
-					if ((currentChildSource.equals(source)) && (currentChildTarget.equals(target))) {
-						// return the weight of the edge of interest
-						return childrenEdges.get(i).getWeight();
-					}
-
-					// set the new parent edge to the nth target of the old parent source 
-					parentNode = childrenEdges.get(i).getTarget();
+				if ((currentChildSource.equals(source)) && (currentChildTarget.equals(target))) {
+					// return the weight of the edge of interest
+					return childrenEdges.get(i).getWeight();
 				}
 
-				// if the new parentNode has not already been discovered, then add it to the discovered hashset and add it to queue.
-				if (!visited.contains(parentNode)) {
-					visited.add(parentNode);
-					stack.push(parentNode);
-				}
+				// set the new parent edge to the nth target of the old parent source 
+				parentNode = childrenEdges.get(i).getTarget();
 			}
 
+			// if the new parentNode has not already been discovered, then add it to the discovered hashset and add it to queue.
+			if (!visited.contains(parentNode)) {
+				visited.add(parentNode);
+				stack.push(parentNode);
+			}
 		}
+
+
 		// if no edge found, return null
 		return -1;
 	}
