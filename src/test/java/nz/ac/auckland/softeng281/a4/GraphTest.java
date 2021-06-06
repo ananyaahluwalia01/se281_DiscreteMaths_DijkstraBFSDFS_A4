@@ -143,15 +143,29 @@ public class GraphTest {
         }
         
         @Test
-        public void testShortestPathC() {
+        public void testShortestPathSelfLoopExists() {
         	runTest("a.txt", "path 3 3");
             assertTrue(myOut.toString().contains("The shortest path is: 3 -> 3 cost: 0"));
         }
         
         @Test
-        public void testShortestPathD() {
-        	runTest("b.txt", "path 3 1");
-            assertTrue(myOut.toString().contains("The shortest path is: 3 -> 3 cost: 0"));
+        public void testShortestPathSelfLoopNotExists() {
+        	runTest("g7.txt", "path 3 3");
+        	assertTrue(myOut.toString().contains("The shortest path is: 3 -> 3 cost: 0"));
+        }
+        
+        @Test
+        public void testShortestPathE() {
+        	runTest("g7.txt", "path 7 6");
+        	assertTrue(myOut.toString().contains("The shortest path is: 7 -> 5 -> 6 cost: 5"));
+        }
+        
+        @Ignore
+        @Test
+        public void testShortestPathMoreNodesMeansLessWeight() {
+        	runTest("b.txt", "path 2 0");
+        	assertTrue(myOut.toString().contains("The shortest path is: 2 -> 1 -> 0 cost: 4"));
+        	assertFalse(myOut.toString().contains("The shortest path is: 2 -> 0 cost: 9"));
         }
 
     }
